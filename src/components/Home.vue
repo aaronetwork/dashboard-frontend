@@ -6,19 +6,23 @@
       <div class="stats-cards">
         <div class="card">
           <h2>Total accounts</h2>
-          <p>{{ formattedAccount }}</p>
+          <p style="font-size: 18px">{{ formattedAccount }}</p>
         </div>
         <div class="card">
           <h2>Current inflation</h2>
-          <p>{{ inflationRate }}%</p>
+          <p style="font-size: 18px">{{ inflationRate }}%</p>
         </div>
         <div class="card">
           <h2>Current supply</h2>
-          <p>{{ formattedSupply }}</p>
+          <p style="font-size: 18px">{{ formattedSupply }}</p>
         </div>
         <div class="card">
-          <h2>Staking pool (bonded/unbonded)</h2>
-          <p>{{ formattedBond }}/{{ formattedUnbond }}</p>
+          <h2>Bonded/Unbonded</h2>
+          <p style="font-size: 18px">{{ formattedBond }}/{{ formattedUnbond }}</p>
+        </div>
+        <div class="card">
+          <h2>Total transactions</h2>
+          <p style="font-size: 18px">{{ formattedTransaction }}</p>
         </div>
       </div>
     </div>
@@ -39,6 +43,10 @@
         <h3>Staking pool</h3>
         <staking-chart v-if="stakingPoolDataLoaded" :stakingPoolData="stakingPoolData"></staking-chart>
       </div>
+      <div class="stats">
+        <h3>Transaction</h3>
+        <transaction-chart v-if="transactionDataLoaded" :transactionData="transactionData"></transaction-chart>
+      </div>
     </div>
   </main>
 </template>
@@ -49,13 +57,15 @@ import AccountChart from './AccountChart.vue';
 import SupplyChart from './SupplyChart.vue';
 import InflationChart from './InflationChart.vue';
 import StakingChart from './StakingChart.vue';
+import TransactionChart from './TransactionChart.vue';
 
 export default {
   components: {
     AccountChart,
     SupplyChart,
     InflationChart,
-    StakingChart
+    StakingChart,
+    TransactionChart
   },
   data() {
     return {
@@ -67,10 +77,13 @@ export default {
       supplyDataLoaded: false,
       inflationDataLoaded: false,
       stakingPoolDataLoaded: false,
+      transactionDataLoaded: false,
       accountData: [],
       inflationData: [],
       stakingPoolData: [],
       supplyData: [],
+      transactionData: [],
+      transaction: null,
       account: null,
       inflation: null,
       stakingPool: null,
@@ -80,6 +93,9 @@ export default {
   computed: {
     formattedAccount() {
       return this.account !== undefined && this.account !== null ? Number(this.account).toLocaleString() : 'Loading...';
+    },
+    formattedTransaction() {
+      return this.transaction !== undefined && this.transaction !== null ? Number(this.transaction).toLocaleString() : 'Loading...';
     },
     formattedSupply() {
       return this.supply ? (this.supply / 1000000).toLocaleString() : 'Loading...';
@@ -168,6 +184,24 @@ export default {
         console.error('Error fetching staking pool:', error);
       }
     },
+    async fetchTransactionData() {
+      try {
+        const response = await axios.get(this.apiUrl + 'transaction');
+        this.transactionData = response.data
+
+        this.transactionDataLoaded = true
+      } catch (error) {
+        console.error('Error fetching transaction:', error);
+      }
+    },
+    async fetchTransaction() {
+      try {
+        const response = await axios.get(this.apiUrl + 'transaction/total');
+        this.transaction = response.data.total
+      } catch (error) {
+        console.error('Error fetching transaction total:', error);
+      }
+    },
   },
   created() {
     this.fetchPool();
@@ -178,6 +212,8 @@ export default {
     this.fetchSupplyData();
     this.fetchInflationData();
     this.fetchStakingPoolData();
+    this.fetchTransactionData();
+    this.fetchTransaction();
   },
 };
 </script>
