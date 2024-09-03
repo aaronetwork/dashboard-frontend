@@ -2,7 +2,7 @@
   <main class="main-content">
     <div class="welcome-section">
       <h1>Welcome to Dashboard</h1>
-      <p>This is an open source project. <a href="https://github.com/aaronetwork/" target="_blank">More details.</a></p>
+      <p>This is the dashboard for <a href="https://aaronetwork.xyz/" target="_blank">Aaron Network</a>. The dashboard provides historical data of the network.</p>
       <div class="stats-cards">
         <div class="card">
           <h2>Total accounts</h2>

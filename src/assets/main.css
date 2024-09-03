@@ -65,7 +65,7 @@ body {
 .main-content {
   padding: 20px;
   min-height: 100vh;
-  min-width: 1600px;
+  min-width: 80%;
 }
 
 .welcome-section {
@@ -75,7 +75,7 @@ body {
 .welcome-section, .main-section {
   margin: 0 auto;
   width: 100%;
-  max-width: 1600px;
+  max-width: 80%;
 }
 
 .welcome-section h1 {
@@ -145,7 +145,7 @@ a:hover {
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   flex: 1;
-  min-width: 580px;
+  min-width: 38%;
 }
 
 .stats ul {

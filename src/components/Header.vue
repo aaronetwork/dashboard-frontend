@@ -2,16 +2,16 @@
   <header class="header">
     <div class="header-logo">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#1a73e8"/>
+        <path d="M4 12H8V20H4V12ZM10 8H14V20H10V8ZM16 4H20V20H16V4Z" fill="#1a73e8"/>
       </svg>
       {{ siteName }}
     </div>
     <nav class="header-nav">
       <ul>
-        <li><a href="" target="_blank">Site</a></li>
-        <li><a href="" target="_blank">Explorer</a></li>
-        <li><a href="" target="_blank">Github</a></li>
-        <li><a href="" target="_blank">Twitter</a></li>
+        <li><a href="https://aaronetwork.xyz/" target="_blank">Site</a></li>
+        <li><a href="https://explorer.aaronetwork.xyz/" target="_blank">Explorer</a></li>
+        <li><a href="https://github.com/aaronetwork" target="_blank">Github</a></li>
+        <li><a href="https://x.com/aaronetwork" target="_blank">Twitter</a></li>
       </ul>
     </nav>
   </header>
