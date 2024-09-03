@@ -6,7 +6,7 @@
       <div class="stats-cards">
         <div class="card">
           <h2>Total accounts</h2>
-          <p>{{ account }}</p>
+          <p>{{ formattedAccount }}</p>
         </div>
         <div class="card">
           <h2>Current inflation</h2>
@@ -66,6 +66,9 @@ export default {
     };
   },
   computed: {
+    formattedAccount() {
+      return this.account !== undefined && this.account !== null ? Number(this.account).toLocaleString() : 'Loading...';
+    },
     formattedSupply() {
       return this.supply ? (this.supply / 1000000).toLocaleString() : 'Loading...';
     },
