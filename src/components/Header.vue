@@ -8,10 +8,10 @@
     </div>
     <nav class="header-nav">
       <ul>
-        <li>Site</li>
-        <li>Explorer</li>
-        <li>Github</li>
-        <li>Twitter</li>
+        <li><a href="" target="_blank">Site</a></li>
+        <li><a href="" target="_blank">Explorer</a></li>
+        <li><a href="" target="_blank">Github</a></li>
+        <li><a href="" target="_blank">Twitter</a></li>
       </ul>
     </nav>
   </header>
