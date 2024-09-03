@@ -36,7 +36,8 @@
         <inflation-chart v-if="inflationDataLoaded" :inflationData="inflationData"></inflation-chart>
       </div>
       <div class="stats">
-        <h3>Transactions</h3>
+        <h3>Staking pool</h3>
+        <staking-chart v-if="stakingPoolDataLoaded" :stakingPoolData="stakingPoolData"></staking-chart>
       </div>
     </div>
   </main>
@@ -47,12 +48,14 @@ import axios from 'axios';
 import AccountChart from './AccountChart.vue';
 import SupplyChart from './SupplyChart.vue';
 import InflationChart from './InflationChart.vue';
+import StakingChart from './StakingChart.vue';
 
 export default {
   components: {
     AccountChart,
     SupplyChart,
-    InflationChart
+    InflationChart,
+    StakingChart
   },
   data() {
     return {
@@ -60,10 +63,11 @@ export default {
       apiUrl: import.meta.env.VITE_API_URL,
       denom: import.meta.env.VITE_DENOM,
       minimalDenom: import.meta.env.VITE_MINIMAL_DENOM,
-      accountData: [],
       accountDataLoaded: false,
       supplyDataLoaded: false,
       inflationDataLoaded: false,
+      stakingPoolDataLoaded: false,
+      accountData: [],
       inflationData: [],
       stakingPoolData: [],
       supplyData: [],
@@ -151,7 +155,17 @@ export default {
 
         this.inflationDataLoaded = true
       } catch (error) {
-        console.error('Error fetching supplies:', error);
+        console.error('Error fetching inflation:', error);
+      }
+    },
+    async fetchStakingPoolData() {
+      try {
+        const response = await axios.get(this.apiUrl + 'staking');
+        this.stakingPoolData = response.data
+
+        this.stakingPoolDataLoaded = true
+      } catch (error) {
+        console.error('Error fetching staking pool:', error);
       }
     },
   },
@@ -163,6 +177,7 @@ export default {
     this.fetchAccountData();
     this.fetchSupplyData();
     this.fetchInflationData();
+    this.fetchStakingPoolData();
   },
 };
 </script>
