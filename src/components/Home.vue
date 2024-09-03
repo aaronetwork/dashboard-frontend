@@ -33,6 +33,7 @@
       </div>
       <div class="stats">
         <h3>Inflation's</h3>
+        <inflation-chart v-if="inflationDataLoaded" :inflationData="inflationData"></inflation-chart>
       </div>
       <div class="stats">
         <h3>Transactions</h3>
@@ -45,11 +46,13 @@
 import axios from 'axios';
 import AccountChart from './AccountChart.vue';
 import SupplyChart from './SupplyChart.vue';
+import InflationChart from './InflationChart.vue';
 
 export default {
   components: {
     AccountChart,
-    SupplyChart
+    SupplyChart,
+    InflationChart
   },
   data() {
     return {
@@ -60,6 +63,7 @@ export default {
       accountData: [],
       accountDataLoaded: false,
       supplyDataLoaded: false,
+      inflationDataLoaded: false,
       inflationData: [],
       stakingPoolData: [],
       supplyData: [],
@@ -140,6 +144,16 @@ export default {
         console.error('Error fetching supplies:', error);
       }
     },
+    async fetchInflationData() {
+      try {
+        const response = await axios.get(this.apiUrl + 'inflation');
+        this.inflationData = response.data
+
+        this.inflationDataLoaded = true
+      } catch (error) {
+        console.error('Error fetching supplies:', error);
+      }
+    },
   },
   created() {
     this.fetchPool();
@@ -148,6 +162,7 @@ export default {
     this.fetchInflation();
     this.fetchAccountData();
     this.fetchSupplyData();
+    this.fetchInflationData();
   },
 };
 </script>
