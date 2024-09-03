@@ -29,6 +29,7 @@
       </div>
       <div class="stats">
         <h3>Supplies</h3>
+        <supply-chart v-if="supplyDataLoaded" :supplyData="supplyData"></supply-chart>
       </div>
       <div class="stats">
         <h3>Inflation's</h3>
@@ -43,10 +44,12 @@
 <script>
 import axios from 'axios';
 import AccountChart from './AccountChart.vue';
+import SupplyChart from './SupplyChart.vue';
 
 export default {
   components: {
     AccountChart,
+    SupplyChart
   },
   data() {
     return {
@@ -56,6 +59,7 @@ export default {
       minimalDenom: import.meta.env.VITE_MINIMAL_DENOM,
       accountData: [],
       accountDataLoaded: false,
+      supplyDataLoaded: false,
       inflationData: [],
       stakingPoolData: [],
       supplyData: [],
@@ -126,6 +130,16 @@ export default {
         console.error('Error fetching accounts:', error);
       }
     },
+    async fetchSupplyData() {
+      try {
+        const response = await axios.get(this.apiUrl + 'supply');
+        this.supplyData = response.data
+
+        this.supplyDataLoaded = true
+      } catch (error) {
+        console.error('Error fetching supplies:', error);
+      }
+    },
   },
   created() {
     this.fetchPool();
@@ -133,6 +147,7 @@ export default {
     this.fetchSupply();
     this.fetchInflation();
     this.fetchAccountData();
+    this.fetchSupplyData();
   },
 };
 </script>
